@@ -1,0 +1,452 @@
+openapi: 3.0.3
+info:
+  title: Transevilz API
+  description: Dokumentasi untuk menggunakan API aplikasi Transevilz
+  version: 1.0.11
+servers:
+- url: https://red-gifted-squid.cyclic.app
+tags:
+- name: Mobile API
+  description: List of endpoint that use to hit mobile api
+- name: Backoffice API
+  description: Access to Petstore orders
+paths:
+  /api/v1/otp_verification:
+    post:
+      tags:
+      - Mobile API
+      summary: OTP
+      description: gunakan untuk melakukan verifikasi dengan OTP
+      operationId: apiV1Otp_verificationPOST
+      requestBody:
+        description: Semantara belum ada proses verifikasi nyata. masih menggunakan
+          harcoded **Code**. gunakan `otp_code:`**102030**
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Otp'
+        required: true
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200'
+        "400":
+          description: Error operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/register:
+    post:
+      tags:
+      - Mobile API
+      summary: Register user
+      description: register user.
+      operationId: apiV1RegisterPOST
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/login:
+    post:
+      tags:
+      - Mobile API
+      summary: Login user
+      description: login user.
+      operationId: apiV1LoginPOST
+      requestBody:
+        description: login object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_login_body'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_1'
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_2'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/pin:
+    post:
+      tags:
+      - Mobile API
+      summary: Create user pin
+      description: Need `bearer authorization` as header
+      operationId: apiV1PinPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_pin_body'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_2'
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_3'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/new_password:
+    post:
+      tags:
+      - Mobile API
+      summary: Create new password
+      description: Need `bearer authorization` as header
+      operationId: apiV1New_passwordPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_new_password_body'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_3'
+      x-swagger-router-controller: MobileAPI
+  /api/backoffice/users:
+    get:
+      tags:
+      - Backoffice API
+      operationId: apiBackofficeUsersGET
+      responses:
+        "200":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+                x-content-type: application/json
+      x-swagger-router-controller: BackofficeAPI
+    post:
+      tags:
+      - Backoffice API
+      operationId: apiBackofficeUsersPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201'
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+      x-swagger-router-controller: BackofficeAPI
+  /api/backoffice/users/{user_id}:
+    put:
+      tags:
+      - Backoffice API
+      operationId: apiBackofficeUsersUser_idPUT
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of pet to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_4'
+        "400":
+          description: failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_400_1'
+      x-swagger-router-controller: BackofficeAPI
+    delete:
+      tags:
+      - Backoffice API
+      operationId: apiBackofficeUsersUser_idDELETE
+      parameters:
+      - name: user_id
+        in: path
+        description: ID of pet to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: if deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+      x-swagger-router-controller: BackofficeAPI
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        email:
+          type: string
+          example: andika@mail.com
+        doc_type:
+          type: string
+          description: only `ktp` or `sim` or `passport`
+          example: ktp
+        doc_number:
+          type: integer
+          example: 123456781727364750
+        firstname:
+          type: string
+          example: andi
+        lastname:
+          type: string
+          example: ka
+        birth_place:
+          type: string
+          example: surakarta
+        birth_date:
+          type: string
+          description: format dd/mm/yyyy
+          example: 10/02/2022
+        address:
+          type: string
+          example: jln. magelang no.5
+        phone_number:
+          type: string
+          example: "343434343434"
+        password:
+          type: string
+          example: myPassWD
+        sex:
+          type: string
+          description: only `male` or `female`
+          example: male
+      example:
+        firstname: andi
+        password: myPassWD
+        address: jln. magelang no.5
+        birth_date: 10/02/2022
+        sex: male
+        doc_number: 123456781727364750
+        birth_place: surakarta
+        phone_number: "343434343434"
+        doc_type: ktp
+        email: andika@mail.com
+        lastname: ka
+    Otp:
+      required:
+      - otp_code
+      type: object
+      properties:
+        otp_code:
+          type: string
+          example: "102030"
+    inline_response_200:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          example: otp verification success!
+      example:
+        message: otp verification success!
+        status: success
+    inline_response_400:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          example: otp verification error!
+    inline_response_201:
+      type: object
+      properties:
+        message:
+          type: string
+          example: user created
+      example:
+        message: user created
+    inline_response_400_1:
+      type: object
+      properties:
+        message:
+          type: string
+          example: email already registered
+    v1_login_body:
+      type: object
+      properties:
+        email:
+          type: string
+          example: ahmad@gmail.com
+        password:
+          type: string
+          example: niza5r
+    inline_response_201_1:
+      type: object
+      properties:
+        accessToken:
+          type: string
+          example: kkjasdkhdhasldoicawoeiji2j3oijlkas
+        expiresIn:
+          type: integer
+          description: token expired pada
+          example: 2934234
+        user:
+          $ref: '#/components/schemas/inline_response_201_1_user'
+      example:
+        expiresIn: 2934234
+        accessToken: kkjasdkhdhasldoicawoeiji2j3oijlkas
+        user:
+          userPin: false
+          id: kajsdf-asdf-asdf23-asd-aasd
+          fullname: ahmad nizar
+          email: ahmad@gmail.com
+    inline_response_400_2:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed to login
+        message:
+          type: string
+          example: email or password invalid
+    v1_pin_body:
+      type: object
+      properties:
+        pin:
+          type: integer
+          example: 102030
+    inline_response_201_2:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: pin created
+      example:
+        message: pin created
+        status: success
+    inline_response_400_3:
+      type: object
+      properties:
+        status:
+          type: string
+          example: failed
+        message:
+          type: string
+          example: user already have pin
+    v1_new_password_body:
+      type: object
+      properties:
+        password:
+          type: string
+          example: newPass_word
+    inline_response_201_3:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: password updated
+      example:
+        message: password updated
+        status: success
+    inline_response_201_4:
+      type: object
+      properties:
+        message:
+          type: string
+          example: user updated
+      example:
+        message: user updated
+    inline_response_200_1:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: user deleted
+      example:
+        message: user deleted
+        status: success
+    inline_response_201_1_user:
+      type: object
+      properties:
+        id:
+          type: string
+          example: kajsdf-asdf-asdf23-asd-aasd
+        email:
+          type: string
+          example: ahmad@gmail.com
+        fullname:
+          type: string
+          example: ahmad nizar
+        userPin:
+          type: boolean
+          example: false
+      example:
+        userPin: false
+        id: kajsdf-asdf-asdf23-asd-aasd
+        fullname: ahmad nizar
+        email: ahmad@gmail.com
