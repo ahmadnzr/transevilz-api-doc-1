@@ -23,8 +23,18 @@ module.exports.apiV1MyTransactionGET = function apiV1MyTransactionGET (req, res,
     });
 };
 
-module.exports.apiV1New_passwordPOST = function apiV1New_passwordPOST (req, res, next, body) {
-  MobileAPI.apiV1New_passwordPOST(body)
+module.exports.apiV1New_passwordPUT = function apiV1New_passwordPUT (req, res, next, body) {
+  MobileAPI.apiV1New_passwordPUT(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.apiV1New_pinPUT = function apiV1New_pinPUT (req, res, next, body) {
+  MobileAPI.apiV1New_pinPUT(body)
     .then(function (response) {
       utils.writeJson(res, response);
     })

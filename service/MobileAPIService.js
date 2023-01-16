@@ -86,11 +86,34 @@ exports.apiV1MyTransactionGET = function() {
  * body V1_new_password_body  (optional)
  * returns inline_response_201_3
  **/
-exports.apiV1New_passwordPOST = function(body) {
+exports.apiV1New_passwordPUT = function(body) {
   return new Promise(function(resolve, reject) {
     var examples = {};
     examples['application/json'] = {
   "message" : "password updated",
+  "status" : "success"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+/**
+ * Create new Pin
+ * butuh header authorization
+ *
+ * body V1_new_pin_body  (optional)
+ * returns inline_response_201_4
+ **/
+exports.apiV1New_pinPUT = function(body) {
+  return new Promise(function(resolve, reject) {
+    var examples = {};
+    examples['application/json'] = {
+  "message" : "pin updated",
   "status" : "success"
 };
     if (Object.keys(examples).length > 0) {
@@ -175,7 +198,7 @@ exports.apiV1RegisterPOST = function(body) {
  * Need `bearer authorization` as header
  *
  * body V1_transactions_body  (optional)
- * returns inline_response_201_4
+ * returns inline_response_201_5
  **/
 exports.apiV1TransactionsPOST = function(body) {
   return new Promise(function(resolve, reject) {

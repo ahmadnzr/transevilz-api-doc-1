@@ -121,12 +121,12 @@ paths:
                 $ref: '#/components/schemas/inline_response_400_3'
       x-swagger-router-controller: MobileAPI
   /api/v1/new_password:
-    post:
+    put:
       tags:
       - Mobile API
       summary: Create new password
       description: "tidak pake header, cukup email valid"
-      operationId: apiV1New_passwordPOST
+      operationId: apiV1New_passwordPUT
       requestBody:
         content:
           application/json:
@@ -139,6 +139,26 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/inline_response_201_3'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/new_pin:
+    put:
+      tags:
+      - Mobile API
+      summary: Create new Pin
+      description: butuh header authorization
+      operationId: apiV1New_pinPUT
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_new_pin_body'
+      responses:
+        "201":
+          description: successful operation.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_4'
       x-swagger-router-controller: MobileAPI
   /api/v1/transactions:
     post:
@@ -158,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_4'
+                $ref: '#/components/schemas/inline_response_201_5'
       x-swagger-router-controller: MobileAPI
   /api/v1/transactions/{transaction_id}:
     get:
@@ -266,7 +286,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_5'
+                $ref: '#/components/schemas/inline_response_201_6'
         "400":
           description: failed
           content:
@@ -475,6 +495,24 @@ components:
       example:
         message: password updated
         status: success
+    v1_new_pin_body:
+      type: object
+      properties:
+        pin:
+          type: string
+          example: "909090"
+    inline_response_201_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: pin updated
+      example:
+        message: pin updated
+        status: success
     v1_transactions_body:
       type: object
       properties:
@@ -490,7 +528,7 @@ components:
         nominal:
           type: string
           example: "90000000"
-    inline_response_201_4:
+    inline_response_201_5:
       type: object
       properties:
         status:
@@ -500,7 +538,7 @@ components:
           type: string
           example: transaction created
         data:
-          $ref: '#/components/schemas/inline_response_201_4_data'
+          $ref: '#/components/schemas/inline_response_201_5_data'
       example:
         data:
           transaction_id: 1c38b63e-c2a4-4490-acc1-322796a6b284
@@ -566,7 +604,7 @@ components:
         isExpired: "false"
         receipent_norek: "720200009304145"
         status: In Progress
-    inline_response_201_5:
+    inline_response_201_6:
       type: object
       properties:
         message:
@@ -606,7 +644,7 @@ components:
         id: kajsdf-asdf-asdf23-asd-aasd
         fullname: ahmad nizar
         email: ahmad@gmail.com
-    inline_response_201_4_data:
+    inline_response_201_5_data:
       type: object
       properties:
         transaction_id:
