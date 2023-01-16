@@ -172,6 +172,29 @@ exports.apiV1PinPOST = function(body) {
 
 
 /**
+ * GET receipent
+ * butuh token
+ *
+ * bank_code String  (optional)
+ * no_rekening String  (optional)
+ * returns inline_response_200_1
+ **/
+exports.apiV1ReceipentGET = function(bank_code,no_rekening) {
+  return new Promise(function(resolve, reject) {
+    var examples = {};
+    examples['application/json'] = {
+  "name" : "ANdika"
+};
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+/**
  * Register user
  * register user.
  *
@@ -224,7 +247,7 @@ exports.apiV1TransactionsPOST = function(body) {
  * Need `bearer authorization` as header
  *
  * transaction_id String ID of pet to return
- * returns inline_response_200_1
+ * returns inline_response_200_2
  **/
 exports.apiV1TransactionsTransaction_idGET = function(transaction_id) {
   return new Promise(function(resolve, reject) {

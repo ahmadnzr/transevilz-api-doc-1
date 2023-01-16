@@ -160,6 +160,36 @@ paths:
               schema:
                 $ref: '#/components/schemas/inline_response_201_4'
       x-swagger-router-controller: MobileAPI
+  /api/v1/receipent:
+    get:
+      tags:
+      - Mobile API
+      summary: GET receipent
+      description: butuh token
+      operationId: apiV1ReceipentGET
+      parameters:
+      - name: bank_code
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: no_rekening
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+      x-swagger-router-controller: MobileAPI
   /api/v1/transactions:
     post:
       tags:
@@ -202,7 +232,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/inline_response_200_2'
       x-swagger-router-controller: MobileAPI
   /api/v1/myTransaction:
     get:
@@ -219,7 +249,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/inline_response_200_1'
+                  $ref: '#/components/schemas/inline_response_200_2'
                 x-content-type: application/json
       x-swagger-router-controller: MobileAPI
   /api/backoffice/users:
@@ -313,7 +343,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/inline_response_200_3'
       x-swagger-router-controller: BackofficeAPI
 components:
   schemas:
@@ -513,6 +543,14 @@ components:
       example:
         message: pin updated
         status: success
+    inline_response_200_1:
+      type: object
+      properties:
+        name:
+          type: string
+          example: ANdika
+      example:
+        name: ANdika
     v1_transactions_body:
       type: object
       properties:
@@ -544,7 +582,7 @@ components:
           transaction_id: 1c38b63e-c2a4-4490-acc1-322796a6b284
         message: transaction created
         status: success
-    inline_response_200_1:
+    inline_response_200_2:
       type: object
       properties:
         id:
@@ -612,7 +650,7 @@ components:
           example: user updated
       example:
         message: user updated
-    inline_response_200_2:
+    inline_response_200_3:
       type: object
       properties:
         status:

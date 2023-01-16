@@ -63,6 +63,16 @@ module.exports.apiV1PinPOST = function apiV1PinPOST (req, res, next, body) {
     });
 };
 
+module.exports.apiV1ReceipentGET = function apiV1ReceipentGET (req, res, next, bank_code, no_rekening) {
+  MobileAPI.apiV1ReceipentGET(bank_code, no_rekening)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.apiV1RegisterPOST = function apiV1RegisterPOST (req, res, next, body) {
   MobileAPI.apiV1RegisterPOST(body)
     .then(function (response) {

@@ -65,7 +65,7 @@ exports.apiBackofficeUsersPOST = function(body) {
 /**
  *
  * user_id String ID of pet to return
- * returns inline_response_200_2
+ * returns inline_response_200_3
  **/
 exports.apiBackofficeUsersUser_idDELETE = function(user_id) {
   return new Promise(function(resolve, reject) {
