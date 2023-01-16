@@ -13,6 +13,16 @@ module.exports.apiV1LoginPOST = function apiV1LoginPOST (req, res, next, body) {
     });
 };
 
+module.exports.apiV1MyTransactionGET = function apiV1MyTransactionGET (req, res, next) {
+  MobileAPI.apiV1MyTransactionGET()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.apiV1New_passwordPOST = function apiV1New_passwordPOST (req, res, next, body) {
   MobileAPI.apiV1New_passwordPOST(body)
     .then(function (response) {
@@ -45,6 +55,26 @@ module.exports.apiV1PinPOST = function apiV1PinPOST (req, res, next, body) {
 
 module.exports.apiV1RegisterPOST = function apiV1RegisterPOST (req, res, next, body) {
   MobileAPI.apiV1RegisterPOST(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.apiV1TransactionsPOST = function apiV1TransactionsPOST (req, res, next, body) {
+  MobileAPI.apiV1TransactionsPOST(body)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.apiV1TransactionsTransaction_idGET = function apiV1TransactionsTransaction_idGET (req, res, next, transaction_id) {
+  MobileAPI.apiV1TransactionsTransaction_idGET(transaction_id)
     .then(function (response) {
       utils.writeJson(res, response);
     })

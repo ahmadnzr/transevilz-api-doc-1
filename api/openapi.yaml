@@ -125,7 +125,7 @@ paths:
       tags:
       - Mobile API
       summary: Create new password
-      description: Need `bearer authorization` as header
+      description: "tidak pake header, cukup email valid"
       operationId: apiV1New_passwordPOST
       requestBody:
         content:
@@ -139,6 +139,68 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/inline_response_201_3'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/transactions:
+    post:
+      tags:
+      - Mobile API
+      summary: Create transaction
+      description: Need `bearer authorization` as header
+      operationId: apiV1TransactionsPOST
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/v1_transactions_body'
+      responses:
+        "201":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_201_4'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/transactions/{transaction_id}:
+    get:
+      tags:
+      - Mobile API
+      summary: Create transaction
+      description: Need `bearer authorization` as header
+      operationId: apiV1TransactionsTransaction_idGET
+      parameters:
+      - name: transaction_id
+        in: path
+        description: ID of pet to return
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/inline_response_200_1'
+      x-swagger-router-controller: MobileAPI
+  /api/v1/myTransaction:
+    get:
+      tags:
+      - Mobile API
+      summary: Create transaction
+      description: Need `bearer authorization` as header
+      operationId: apiV1MyTransactionGET
+      responses:
+        "200":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+                x-content-type: application/json
       x-swagger-router-controller: MobileAPI
   /api/backoffice/users:
     get:
@@ -204,7 +266,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_201_4'
+                $ref: '#/components/schemas/inline_response_201_5'
         "400":
           description: failed
           content:
@@ -231,7 +293,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/inline_response_200_2'
       x-swagger-router-controller: BackofficeAPI
 components:
   schemas:
@@ -398,6 +460,9 @@ components:
         password:
           type: string
           example: newPass_word
+        email:
+          type: string
+          example: email@mail.com
     inline_response_201_3:
       type: object
       properties:
@@ -410,7 +475,98 @@ components:
       example:
         message: password updated
         status: success
+    v1_transactions_body:
+      type: object
+      properties:
+        pin:
+          type: integer
+          example: 102030
+        bank_code:
+          type: string
+          example: "111"
+        no_rekening:
+          type: string
+          example: "720200009304145"
+        nominal:
+          type: string
+          example: "90000000"
     inline_response_201_4:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+        message:
+          type: string
+          example: transaction created
+        data:
+          $ref: '#/components/schemas/inline_response_201_4_data'
+      example:
+        data:
+          transaction_id: 1c38b63e-c2a4-4490-acc1-322796a6b284
+        message: transaction created
+        status: success
+    inline_response_200_1:
+      type: object
+      properties:
+        id:
+          type: string
+          example: asdfasdf
+        receipent_name:
+          type: string
+          example: adi
+        bank:
+          type: string
+          example: CIMB Niaga
+        type_currency:
+          type: string
+          example: IDR to IDR
+        type_transaction:
+          type: string
+          example: Lokal
+        receipent_norek:
+          type: string
+          example: "720200009304145"
+        virtual_account:
+          type: string
+          example: 4806-4156-3950-6506-792
+        total:
+          type: string
+          example: "9005000"
+        nominal:
+          type: string
+          example: "9000000"
+        status:
+          type: string
+          example: In Progress
+        admin_fee:
+          type: string
+          example: "5000"
+        transaction_date:
+          type: string
+          example: 2023-01-16T07:46:59.092Z
+        expired_at:
+          type: string
+          example: 2023-01-17T07:46:59.093Z
+        isExpired:
+          type: string
+          example: "false"
+      example:
+        transaction_date: 2023-01-16T07:46:59.092Z
+        admin_fee: "5000"
+        expired_at: 2023-01-17T07:46:59.093Z
+        receipent_name: adi
+        type_transaction: Lokal
+        bank: CIMB Niaga
+        total: "9005000"
+        nominal: "9000000"
+        virtual_account: 4806-4156-3950-6506-792
+        type_currency: IDR to IDR
+        id: asdfasdf
+        isExpired: "false"
+        receipent_norek: "720200009304145"
+        status: In Progress
+    inline_response_201_5:
       type: object
       properties:
         message:
@@ -418,7 +574,7 @@ components:
           example: user updated
       example:
         message: user updated
-    inline_response_200_1:
+    inline_response_200_2:
       type: object
       properties:
         status:
@@ -450,3 +606,11 @@ components:
         id: kajsdf-asdf-asdf23-asd-aasd
         fullname: ahmad nizar
         email: ahmad@gmail.com
+    inline_response_201_4_data:
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          example: 1c38b63e-c2a4-4490-acc1-322796a6b284
+      example:
+        transaction_id: 1c38b63e-c2a4-4490-acc1-322796a6b284
