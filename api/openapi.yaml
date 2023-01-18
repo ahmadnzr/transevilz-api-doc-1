@@ -160,6 +160,24 @@ paths:
               schema:
                 $ref: '#/components/schemas/inline_response_201_4'
       x-swagger-router-controller: MobileAPI
+  /api/v1/bank:
+    get:
+      tags:
+      - Mobile API
+      summary: GET bank list
+      description: butuh token
+      operationId: apiV1BankGET
+      responses:
+        "200":
+          description: successful operation. di response juga nanti ada `id`
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/inline_response_200_1'
+                x-content-type: application/json
+      x-swagger-router-controller: MobileAPI
   /api/v1/receipent:
     get:
       tags:
@@ -188,7 +206,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_1'
+                $ref: '#/components/schemas/inline_response_200_2'
       x-swagger-router-controller: MobileAPI
   /api/v1/transactions:
     post:
@@ -232,7 +250,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_2'
+                $ref: '#/components/schemas/inline_response_200_3'
       x-swagger-router-controller: MobileAPI
   /api/v1/myTransaction:
     get:
@@ -249,7 +267,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/inline_response_200_2'
+                  $ref: '#/components/schemas/inline_response_200_3'
                 x-content-type: application/json
       x-swagger-router-controller: MobileAPI
   /api/backoffice/users:
@@ -343,7 +361,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/inline_response_200_3'
+                $ref: '#/components/schemas/inline_response_200_4'
       x-swagger-router-controller: BackofficeAPI
 components:
   schemas:
@@ -546,6 +564,22 @@ components:
     inline_response_200_1:
       type: object
       properties:
+        id:
+          type: string
+          example: asdfasdf
+        name:
+          type: string
+          example: Mandiri
+        code:
+          type: number
+          example: 111
+      example:
+        code: 111
+        name: Mandiri
+        id: asdfasdf
+    inline_response_200_2:
+      type: object
+      properties:
         name:
           type: string
           example: ANdika
@@ -582,7 +616,7 @@ components:
           transaction_id: 1c38b63e-c2a4-4490-acc1-322796a6b284
         message: transaction created
         status: success
-    inline_response_200_2:
+    inline_response_200_3:
       type: object
       properties:
         id:
@@ -650,7 +684,7 @@ components:
           example: user updated
       example:
         message: user updated
-    inline_response_200_3:
+    inline_response_200_4:
       type: object
       properties:
         status:

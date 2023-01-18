@@ -3,6 +3,16 @@
 var utils = require('../utils/writer.js');
 var MobileAPI = require('../service/MobileAPIService');
 
+module.exports.apiV1BankGET = function apiV1BankGET (req, res, next) {
+  MobileAPI.apiV1BankGET()
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.apiV1LoginPOST = function apiV1LoginPOST (req, res, next, body) {
   MobileAPI.apiV1LoginPOST(body)
     .then(function (response) {

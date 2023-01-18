@@ -2,6 +2,33 @@
 
 
 /**
+ * GET bank list
+ * butuh token
+ *
+ * returns List
+ **/
+exports.apiV1BankGET = function() {
+  return new Promise(function(resolve, reject) {
+    var examples = {};
+    examples['application/json'] = [ {
+  "code" : 111,
+  "name" : "Mandiri",
+  "id" : "asdfasdf"
+}, {
+  "code" : 111,
+  "name" : "Mandiri",
+  "id" : "asdfasdf"
+} ];
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]]);
+    } else {
+      resolve();
+    }
+  });
+}
+
+
+/**
  * Login user
  * login user.
  *
@@ -177,7 +204,7 @@ exports.apiV1PinPOST = function(body) {
  *
  * bank_code String  (optional)
  * no_rekening String  (optional)
- * returns inline_response_200_1
+ * returns inline_response_200_2
  **/
 exports.apiV1ReceipentGET = function(bank_code,no_rekening) {
   return new Promise(function(resolve, reject) {
@@ -247,7 +274,7 @@ exports.apiV1TransactionsPOST = function(body) {
  * Need `bearer authorization` as header
  *
  * transaction_id String ID of pet to return
- * returns inline_response_200_2
+ * returns inline_response_200_3
  **/
 exports.apiV1TransactionsTransaction_idGET = function(transaction_id) {
   return new Promise(function(resolve, reject) {
